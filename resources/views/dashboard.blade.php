@@ -27,8 +27,18 @@
                                             <p class="card-text">Age : {{ $user->age }}</p>
                                             <p class="card-text">Email : {{ $user->email }}</p>
                                             <p class="card-text">Role : {{ $user->role->role }}</p>
-                                            <p class="card-text"><button>Show</button></p>
-                                            <p class="card-text"><button>Delete</button></p>
+                                            <p class="card-text">
+                                                <a href="/showadmins/{{$user->id}}">
+                                                    <button>Show</button>
+                                                </a>
+                                            </p>
+                                            <p class="card-text">
+                                                <form action="/del/{{$user->id}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                    <button type="submit">Delete</button>
+                                                </form>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

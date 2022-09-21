@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ Route::get('/role', [RoleController::class,'index'])->name('role');
 Route::get('/createrole', [RoleController::class,'create'])->name('createrole');
 Route::post('/storerole', [RoleController::class,'store']);
 Route::delete('/del/{id}', [RoleController::class,'destroy']);
+
+Route::get('/users',[RegisteredUserController::class,'index'])->name('users');
+Route::get('/edituser/{id}', [RegisteredUserController::class,'edit'])->name('edituser');
+Route::put('/{id}/update', [RegisteredUserController::class,'update']);
+Route::delete('/del/{id}', [RegisteredUserController::class,'destroy']);
+
+Route::get('/showadmins/{id}',[RegisteredUserController::class,'showadmins'])->name('showadmins');
 
 
 

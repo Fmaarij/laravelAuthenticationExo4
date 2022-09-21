@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -54,5 +55,41 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function index(){
+        $users = User::all();
+        return view('users',compact('users'));
+    }
+
+    public function edit($id){
+        $users = User::find($id);
+        $roles = Role::all();
+
+        return view('edituser', compact('users','roles'));
+    }
+
+    public function update(Request $request, $id){
+        $users = User::find($id);
+        $users->name = $request->name;
+        $users->first_name = $request->first_name;
+        $users->age = $request->age;
+        $users->adresse = $request->adresse;
+        $users->role_id = $request->role_id;
+        $users->email = $request->email;
+        $users->password = Hash::make($request->password) ;
+        $users->save();
+        return redirect()->back();
+    }
+    public function destroy($id){
+        $users = User::find($id);
+        $users->delete();
+        return redirect('users');
+    }
+
+    public function showadmins($id){
+        $users = User::find($id);
+        $roles = Role::all();
+        return view('showadmins', compact('users','roles'));
     }
 }
