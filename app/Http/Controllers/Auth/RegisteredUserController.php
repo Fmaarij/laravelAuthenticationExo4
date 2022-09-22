@@ -57,6 +57,10 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 
+    public function __construct(){
+        $this->middleware('auth')->except(['create','store']);
+    }
+
     public function index(){
         $users = User::all();
         return view('users',compact('users'));
